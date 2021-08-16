@@ -37,8 +37,9 @@ import com.google.gson.annotations.SerializedName
  */
 data class Country(
     @field:SerializedName("name") val name: String,
+    @field:SerializedName("alpha2Code") val countryCode: String,
     @field:SerializedName("capital") val capital: String,
     @field:SerializedName("region") val region: String,
-    @field:SerializedName("subregion") val subregion: String,
+    @field:SerializedName("subregion") val subRegion: String,
     @field:SerializedName("flag") val flag: String,
 )

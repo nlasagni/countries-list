@@ -75,9 +75,10 @@ class CountriesListRepositoryTest {
             val expected = listOf(
                 Country(
                     name = "Italy",
+                    countryCode = "IT",
                     capital = "Rome",
                     region = "Europe",
-                    subregion = "Southern Europe",
+                    subRegion = "Southern Europe",
                     flag = "https://restcountries.eu/data/ita.svg"
                 )
             )
