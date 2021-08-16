@@ -28,12 +28,12 @@ plugins {
 }
 
 android {
-    compileSdk compileSdkVersion
+    compileSdk rootProject.compileSdkVersion
 
     defaultConfig {
         applicationId "com.nlasagni.countrieslist"
-        minSdk minSdkVersion
-        targetSdk targetSdkVersion
+        minSdk rootProject.minSdkVersion
+        targetSdk rootProject.targetSdkVersion
         versionCode 1
         versionName "1.0"
 
@@ -61,8 +61,8 @@ android {
         compose true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion composeVersion
-        kotlinCompilerVersion '1.5.10'
+        kotlinCompilerExtensionVersion rootProject.composeVersion
+        kotlinCompilerVersion rootProject.kotlinVersion
     }
     packagingOptions {
         resources {
@@ -88,6 +88,7 @@ dependencies {
 
 
     testImplementation "junit:junit:$junitVersion"
+    testImplementation "com.squareup.okhttp3:mockwebserver:$mockWebServer"
     androidTestImplementation "androidx.test.ext:junit:$testExtJunit"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espressoVersion"
     androidTestImplementation "androidx.compose.ui:ui-test-junit4:$composeVersion"
