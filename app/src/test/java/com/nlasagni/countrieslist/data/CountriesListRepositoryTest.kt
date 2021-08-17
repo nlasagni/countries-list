@@ -76,6 +76,7 @@ class CountriesListRepositoryTest {
                 Country(
                     name = "Italy",
                     countryCode = "IT",
+                    languages = listOf(Language(name = "Italian")),
                     capital = "Rome",
                     region = "Europe",
                     subRegion = "Southern Europe",
