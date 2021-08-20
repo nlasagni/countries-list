@@ -24,8 +24,8 @@
 
 package com.nlasagni.countrylist.di
 
-import com.nlasagni.countrylist.viewmodel.CountryListViewModelFactory
-import com.nlasagni.countrylist.viewmodel.CountryListViewModelFactoryImpl
+import com.nlasagni.countrylist.viewmodel.factory.CountryListViewModelFactory
+import com.nlasagni.countrylist.viewmodel.factory.CountryListViewModelFactoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

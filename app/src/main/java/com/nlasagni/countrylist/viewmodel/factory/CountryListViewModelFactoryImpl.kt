@@ -22,16 +22,25 @@
  * SOFTWARE.
  */
 
-package com.nlasagni.countrylist.viewmodel
+package com.nlasagni.countrylist.viewmodel.factory
 
 import com.nlasagni.countrylist.data.Country
 import com.nlasagni.countrylist.viewmodel.model.CountryList
+import com.nlasagni.countrylist.viewmodel.model.CountryListItem
 
 /**
  * Created by Nicola Lasagni on 20/08/2021.
  */
-interface CountryListViewModelFactory {
+class CountryListViewModelFactoryImpl : CountryListViewModelFactory {
 
-    fun createModel(countries: Collection<Country>): CountryList
+    override fun createModel(countries: Collection<Country>): CountryList {
+        val countryListItems = countries.map {
+            CountryListItem(
+                name = it.name,
+                imageUrl = it.flag
+            )
+        }
+        return CountryList(countryListItems)
+    }
 
 }

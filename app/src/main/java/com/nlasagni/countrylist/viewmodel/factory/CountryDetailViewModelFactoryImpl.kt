@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package com.nlasagni.countrylist.viewmodel
+package com.nlasagni.countrylist.viewmodel.factory
 
 import com.nlasagni.countrylist.data.Country
 import com.nlasagni.countrylist.viewmodel.model.CountryDetail
@@ -30,8 +30,18 @@ import com.nlasagni.countrylist.viewmodel.model.CountryDetail
 /**
  * Created by Nicola Lasagni on 20/08/2021.
  */
-interface CountryDetailViewModelFactory {
+class CountryDetailViewModelFactoryImpl : CountryDetailViewModelFactory {
 
-    fun createModel(country: Country): CountryDetail
+    override fun createModel(country: Country): CountryDetail {
+        return CountryDetail(
+            name = country.name,
+            flagImageUrl = country.flag,
+            code = country.code,
+            capital = country.capital,
+            mainLanguage = country.languages.firstOrNull()?.name ?: "",
+            region = country.region,
+            subRegion = country.subRegion
+        )
+    }
 
 }
