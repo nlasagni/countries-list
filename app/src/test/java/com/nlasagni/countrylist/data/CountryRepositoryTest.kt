@@ -84,7 +84,7 @@ class CountryRepositoryTest {
                     capital = "Rome",
                     region = "Europe",
                     subRegion = "Southern Europe",
-                    flag = "https://restcountries.eu/data/ita.svg"
+                    flag = "https://www.countryflags.io/it/flat/64.png"
                 )
             )
 
