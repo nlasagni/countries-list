@@ -29,8 +29,8 @@ package com.nlasagni.countrylist.data
  */
 interface CountryCache {
 
-    fun get(): Collection<Country>?
+    fun get(): List<Country>?
 
-    fun put(countries: Collection<Country>)
+    fun put(countries: List<Country>)
 
 }

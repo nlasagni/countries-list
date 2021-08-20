@@ -29,10 +29,10 @@ package com.nlasagni.countrylist.data
  */
 interface CountryRepository {
 
-    suspend fun getAllCountries(): Collection<Country>
+    suspend fun getAllCountries(): List<Country>
 
     suspend fun getCountryByCode(code: String): Country?
 
-    suspend fun filterByLanguageOrRegion(keyword: String): Collection<Country>
+    suspend fun filterByLanguageOrRegion(keyword: String): List<Country>
 
 }

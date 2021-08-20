@@ -32,6 +32,6 @@ import com.nlasagni.countrylist.viewmodel.model.CountryList
  */
 interface CountryListViewModelFactory {
 
-    fun createModel(countries: Collection<Country>, fromSearch: Boolean): CountryList
+    fun createModel(countries: List<Country>, fromSearch: Boolean): CountryList
 
 }

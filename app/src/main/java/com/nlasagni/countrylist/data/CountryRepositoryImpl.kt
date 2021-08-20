@@ -27,6 +27,7 @@ package com.nlasagni.countrylist.data
 import android.util.Log
 import com.nlasagni.countrylist.api.CountryFlagImageUrlService
 import com.nlasagni.countrylist.api.RestCountriesService
+import retrofit2.HttpException
 import javax.inject.Inject
 
 /**
@@ -38,17 +39,22 @@ class CountryRepositoryImpl @Inject constructor(
     private val countryCache: CountryCache
 ) : CountryRepository {
 
-    override suspend fun getAllCountries(): Collection<Country> {
+    override suspend fun getAllCountries(): List<Country> {
         val cached = countryCache.get()
         if (cached != null) {
             return cached
         }
-        val countries = service.fetchAllCountries().map { country ->
-            country.copy(
-                flag = countryFlagImageUrlService.fetchFlagImageUrl(CountryCode(country.code))
-            )
+        var countries = emptyList<Country>()
+        try {
+            countries = service.fetchAllCountries().map { country ->
+                country.copy(
+                    flag = countryFlagImageUrlService.fetchFlagImageUrl(CountryCode(country.code))
+                )
+            }
+            countryCache.put(countries)
+        } catch (ex: HttpException) { //TODO: Repository should not know about HTTP
+            Log.e(this::class.simpleName, "Error occurred while getting countries", ex)
         }
-        countryCache.put(countries)
         return countries
     }
 
@@ -56,8 +62,7 @@ class CountryRepositoryImpl @Inject constructor(
         return getAllCountries().firstOrNull { it.code == code }
     }
 
-    override suspend fun filterByLanguageOrRegion(keyword: String): Collection<Country> {
-        Log.e("CountryRepositoryImpl", "filterByLanguageOrRegion: $keyword")
+    override suspend fun filterByLanguageOrRegion(keyword: String): List<Country> {
         return getAllCountries().filter {
             it.region.equals(keyword, ignoreCase = true) ||
                     it.languages.any { language -> language.name.equals(keyword, ignoreCase = true) }

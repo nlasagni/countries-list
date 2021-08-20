@@ -38,7 +38,7 @@ class CountryListViewModelFactoryImpl @Inject constructor(
     private val context: Context
 ) : CountryListViewModelFactory {
 
-    override fun createModel(countries: Collection<Country>, fromSearch: Boolean): CountryList {
+    override fun createModel(countries: List<Country>, fromSearch: Boolean): CountryList {
         val countryListItems = countries.map {
             CountryListItem(
                 code = it.code,

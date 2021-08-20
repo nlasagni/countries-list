@@ -29,13 +29,13 @@ package com.nlasagni.countrylist.data
  */
 class InMemoryCountryCache : CountryCache {
 
-    private var cache: Collection<Country>? = null
+    private var cache: List<Country>? = null
 
-    override fun get(): Collection<Country>? {
+    override fun get(): List<Country>? {
         return cache
     }
 
-    override fun put(countries: Collection<Country>) {
+    override fun put(countries: List<Country>) {
         cache = countries
     }
 
