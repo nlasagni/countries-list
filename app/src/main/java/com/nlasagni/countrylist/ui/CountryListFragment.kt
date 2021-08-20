@@ -46,7 +46,7 @@ class CountryListFragment : Fragment(), CountryListAdapter.OnItemClickListener {
 
     private val viewModel: CountryListViewModel by viewModels()
     private val adapter = CountryListAdapter(this)
-    private val columnCount = 2
+    private val columnCount = 3
 
     override fun onCreateView(
         inflater: LayoutInflater,
