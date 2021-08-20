@@ -24,8 +24,6 @@
 
 package com.nlasagni.countrylist.data
 
-import java.lang.IllegalArgumentException
-
 /**
  * Created by Nicola Lasagni on 20/08/2021.
  */

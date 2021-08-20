@@ -26,9 +26,7 @@ package com.nlasagni.countrylist.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewModelScope
-import com.nlasagni.countrylist.data.Country
 import com.nlasagni.countrylist.data.CountryRepository
 import com.nlasagni.countrylist.viewmodel.factory.CountryDetailViewModelFactory
 import com.nlasagni.countrylist.viewmodel.factory.CountryListViewModelFactory

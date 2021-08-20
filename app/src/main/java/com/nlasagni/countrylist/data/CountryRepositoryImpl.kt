@@ -27,8 +27,6 @@ package com.nlasagni.countrylist.data
 import android.util.Log
 import com.nlasagni.countrylist.api.CountryFlagImageUrlService
 import com.nlasagni.countrylist.api.RestCountriesService
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 /**

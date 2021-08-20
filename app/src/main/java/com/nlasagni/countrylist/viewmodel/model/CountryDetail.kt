@@ -24,9 +24,6 @@
 
 package com.nlasagni.countrylist.viewmodel.model
 
-import com.google.gson.annotations.SerializedName
-import com.nlasagni.countrylist.data.Language
-
 /**
  * Created by Nicola Lasagni on 20/08/2021.
  */
