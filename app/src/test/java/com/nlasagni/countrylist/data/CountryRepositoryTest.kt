@@ -24,6 +24,7 @@
 
 package com.nlasagni.countrylist.data
 
+import com.nlasagni.countrylist.MockData
 import com.nlasagni.countrylist.api.CountryFlagFlagImageUrlServiceImpl
 import com.nlasagni.countrylist.api.RestCountriesService
 import com.nlasagni.countrylist.enqueueResponse
@@ -75,20 +76,7 @@ class CountryRepositoryTest {
 
         runBlocking {
             val fetchedCountries = repository.getAllCountries()
-
-            val expected = listOf(
-                Country(
-                    name = "Italy",
-                    code = "IT",
-                    languages = listOf(Language(name = "Italian")),
-                    capital = "Rome",
-                    region = "Europe",
-                    subRegion = "Southern Europe",
-                    flag = "https://www.countryflags.io/it/flat/64.png"
-                )
-            )
-
-            assertEquals(expected, fetchedCountries)
+            assertEquals(MockData.countryList, fetchedCountries)
         }
     }
 
