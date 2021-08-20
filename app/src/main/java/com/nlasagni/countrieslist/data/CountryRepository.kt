@@ -24,16 +24,11 @@
 
 package com.nlasagni.countrieslist.data
 
-import com.nlasagni.countrieslist.api.RestCountriesService
-import javax.inject.Inject
-
 /**
- * Created by Nicola Lasagni on 16/08/2021.
+ * Created by Nicola Lasagni on 20/08/2021.
  */
-class CountriesListRepository @Inject constructor(
-    private val service: RestCountriesService
-) {
+interface CountryRepository {
 
-    suspend fun fetchAllCountries() = service.fetchAllCountries()
+    suspend fun getAllCountries(): Collection<Country>
 
 }

@@ -41,7 +41,7 @@ import java.util.concurrent.TimeUnit
  * Created by Nicola Lasagni on 16/08/2021.
  */
 @ExperimentalCoroutinesApi
-class CountriesListRepositoryTest {
+class CountryRepositoryTest {
 
     private val mockWebServer = MockWebServer()
 
@@ -58,7 +58,7 @@ class CountriesListRepositoryTest {
         .build()
         .create(RestCountriesService::class.java)
 
-    private val repository = CountriesListRepository(service)
+    private val repository: CountryRepository = CountryRepositoryImpl(service)
 
     @After
     fun tearDown() {
@@ -70,7 +70,7 @@ class CountriesListRepositoryTest {
         mockWebServer.enqueueResponse("countries.json", 200)
 
         runBlocking {
-            val fetchedCountries = repository.fetchAllCountries()
+            val fetchedCountries = repository.getAllCountries()
 
             val expected = listOf(
                 Country(

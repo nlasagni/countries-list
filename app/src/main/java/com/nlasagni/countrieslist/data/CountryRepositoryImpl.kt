@@ -22,32 +22,26 @@
  * SOFTWARE.
  */
 
-package com.nlasagni.countrieslist.viewmodel
+package com.nlasagni.countrieslist.data
 
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.nlasagni.countrieslist.data.CountryRepositoryImpl
-import com.nlasagni.countrieslist.data.Country
-import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.launch
+import com.nlasagni.countrieslist.api.RestCountriesService
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 /**
- * Created by Nicola Lasagni on 17/08/2021.
+ * Created by Nicola Lasagni on 16/08/2021.
  */
-@HiltViewModel
-class CountriesListViewModel @Inject constructor(
-    private val repository: CountryRepositoryImpl
-) : ViewModel() {
+class CountryRepositoryImpl @Inject constructor(
+    private val service: RestCountriesService
+) : CountryRepository {
 
-    private val _countries = MutableLiveData<Collection<Country>>()
+    private lateinit var countryListCache: Collection<Country>
 
-    // creare ui model con paesi e filtri ed errori eventuali
-
-    init {
-        viewModelScope.launch {
-            _countries.value = repository.getAllCountries()
+    override suspend fun getAllCountries(): Collection<Country> {
+        return withContext(Dispatchers.IO) {
+            countryListCache = service.fetchAllCountries()
+            countryListCache
         }
     }
 
