@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.nlasagni.countrylist.R
 import com.nlasagni.countrylist.viewmodel.model.CountryListItem
+import com.squareup.picasso.Picasso
 
 /**
  * Created by Nicola Lasagni on 20/08/2021.
@@ -33,6 +34,12 @@ class CountryListAdapter(
 
         fun bind(countryListItem: CountryListItem, position: Int, itemClickListener: OnItemClickListener) {
             name.text = countryListItem.name
+            Picasso.get()
+                .load(countryListItem.imageUrl)
+                .placeholder(R.mipmap.ic_launcher)
+                .error(R.mipmap.ic_launcher)
+                .fit().centerCrop()
+                .into(image)
             view.setOnClickListener {
                 itemClickListener.onItemClick(countryListItem, position)
             }
