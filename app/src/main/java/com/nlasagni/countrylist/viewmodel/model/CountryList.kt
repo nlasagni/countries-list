@@ -27,4 +27,4 @@ package com.nlasagni.countrylist.viewmodel.model
 /**
  * Created by Nicola Lasagni on 20/08/2021.
  */
-data class CountryList(val countries: Collection<CountryListItem>)
+data class CountryList(val countries: List<CountryListItem>)

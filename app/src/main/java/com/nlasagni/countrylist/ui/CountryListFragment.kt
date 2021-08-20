@@ -30,23 +30,52 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.nlasagni.countrylist.viewmodel.CountriesListViewModel
+import androidx.recyclerview.widget.GridLayoutManager
+import com.nlasagni.countrylist.R
+import com.nlasagni.countrylist.viewmodel.CountryListViewModel
+import com.nlasagni.countrylist.viewmodel.model.CountryList
+import com.nlasagni.countrylist.viewmodel.model.CountryListItem
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.country_list.*
 
 /**
  * Created by Nicola Lasagni on 17/08/2021.
  */
 @AndroidEntryPoint
-class CountryListFragment : Fragment() {
+class CountryListFragment : Fragment(), CountryListAdapter.OnItemClickListener {
 
-    private val viewModel: CountriesListViewModel by viewModels()
+    private val viewModel: CountryListViewModel by viewModels()
+    private val adapter = CountryListAdapter(this)
+    private val columnCount = 2
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return super.onCreateView(inflater, container, savedInstanceState)
+        val view = inflater.inflate(R.layout.country_list, container, false)
+        subscribeForUpdates()
+        return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        countryList.layoutManager = GridLayoutManager(context, columnCount)
+        countryList.adapter = adapter
+    }
+
+    private fun subscribeForUpdates() {
+        viewModel.countryListLiveData.observe(viewLifecycleOwner) {
+            renderViewModel(it)
+        }
+    }
+
+    private fun renderViewModel(countryList: CountryList) {
+        adapter.submitList(countryList.countries)
+    }
+
+    override fun onItemClick(countryListItem: CountryListItem, position: Int) {
+        //TODO("Not yet implemented")
     }
 
 

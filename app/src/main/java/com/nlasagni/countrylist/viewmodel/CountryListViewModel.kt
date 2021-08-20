@@ -37,16 +37,17 @@ import javax.inject.Inject
  * Created by Nicola Lasagni on 17/08/2021.
  */
 @HiltViewModel
-class CountriesListViewModel @Inject constructor(
+class CountryListViewModel @Inject constructor(
     private val repository: CountryRepository,
     private val countryListViewModelFactory: CountryListViewModelFactory
 ) : ViewModel() {
 
-    private val _countries = MutableLiveData<CountryList>()
+    val countryListLiveData = MutableLiveData<CountryList>()
 
     init {
         viewModelScope.launch {
-            _countries.value = countryListViewModelFactory.createModel(repository.getAllCountries())
+            countryListLiveData.value =
+                countryListViewModelFactory.createModel(repository.getAllCountries())
         }
     }
 
