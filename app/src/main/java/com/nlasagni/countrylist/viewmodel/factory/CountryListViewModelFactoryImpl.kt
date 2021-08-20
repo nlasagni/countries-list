@@ -24,16 +24,21 @@
 
 package com.nlasagni.countrylist.viewmodel.factory
 
+import android.content.Context
+import com.nlasagni.countrylist.R
 import com.nlasagni.countrylist.data.Country
 import com.nlasagni.countrylist.viewmodel.model.CountryList
 import com.nlasagni.countrylist.viewmodel.model.CountryListItem
+import javax.inject.Inject
 
 /**
  * Created by Nicola Lasagni on 20/08/2021.
  */
-class CountryListViewModelFactoryImpl : CountryListViewModelFactory {
+class CountryListViewModelFactoryImpl @Inject constructor(
+    private val context: Context
+) : CountryListViewModelFactory {
 
-    override fun createModel(countries: Collection<Country>): CountryList {
+    override fun createModel(countries: Collection<Country>, fromSearch: Boolean): CountryList {
         val countryListItems = countries.map {
             CountryListItem(
                 code = it.code,
@@ -41,7 +46,12 @@ class CountryListViewModelFactoryImpl : CountryListViewModelFactory {
                 imageUrl = it.flag
             )
         }
-        return CountryList(countryListItems)
+        val emptyMessage = if (fromSearch) {
+            context.getString(R.string.no_search_result)
+        } else {
+            context.getString(R.string.no_country_available)
+        }
+        return CountryList(countryListItems, emptyMessage)
     }
 
 }

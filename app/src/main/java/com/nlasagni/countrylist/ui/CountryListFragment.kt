@@ -28,9 +28,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.nlasagni.countrylist.R
@@ -64,6 +64,19 @@ class CountryListFragment : Fragment(), CountryListAdapter.OnItemClickListener {
         super.onViewCreated(view, savedInstanceState)
         countryList.layoutManager = GridLayoutManager(context, columnCount)
         countryList.adapter = adapter
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
+            android.widget.SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                // Empty
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                onSearchQueryChanged(newText ?: "")
+                return true
+            }
+
+        })
     }
 
     private fun subscribeForUpdates() {
@@ -72,8 +85,20 @@ class CountryListFragment : Fragment(), CountryListAdapter.OnItemClickListener {
         }
     }
 
-    private fun renderViewModel(countryList: CountryList) {
-        adapter.submitList(countryList.countries)
+    private fun renderViewModel(countryListModel: CountryList) {
+        if (countryListModel.countries.isNotEmpty()) {
+            countryList.visibility = View.VISIBLE
+            emptyView.visibility = View.GONE
+        } else {
+            countryList.visibility = View.GONE
+            emptyView.visibility = View.VISIBLE
+        }
+        emptyView.text = countryListModel.emptyMessage
+        adapter.submitList(countryListModel.countries)
+    }
+
+    private fun onSearchQueryChanged(keyword: String) {
+        viewModel.onSearchQueryChanged(keyword)
     }
 
     override fun onItemClick(countryListItem: CountryListItem, position: Int) {

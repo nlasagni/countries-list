@@ -36,9 +36,9 @@ class CountryListAdapter(
             name.text = countryListItem.name
             Picasso.get()
                 .load(countryListItem.imageUrl)
-                .placeholder(R.mipmap.ic_launcher)
                 .error(R.mipmap.ic_launcher)
-                .fit().centerCrop()
+                .fit()
+                .centerCrop()
                 .into(image)
             view.setOnClickListener {
                 itemClickListener.onItemClick(countryListItem, position)

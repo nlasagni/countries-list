@@ -26,6 +26,7 @@ package com.nlasagni.countrylist.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewModelScope
 import com.nlasagni.countrylist.data.Country
 import com.nlasagni.countrylist.data.CountryRepository
@@ -35,6 +36,7 @@ import com.nlasagni.countrylist.viewmodel.model.CountryDetail
 import com.nlasagni.countrylist.viewmodel.model.CountryList
 import com.nlasagni.countrylist.viewmodel.model.CountryListItem
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -51,16 +53,35 @@ class CountryViewModel @Inject constructor(
     val countryListLiveData = MutableLiveData<CountryList>()
     val countryDetailLiveData = MutableLiveData<CountryDetail>()
     var selectedCountry: CountryListItem? = null
+    private var searchJob: Job? = null
 
     init {
         viewModelScope.launch {
-            countryListLiveData.value =
-                countryListViewModelFactory.createModel(repository.getAllCountries())
+            countryListLiveData.value = countryListViewModelFactory.createModel(
+                repository.getAllCountries(),
+                fromSearch = false
+            )
         }
     }
 
     fun onCountryListItemClick(countryListItem: CountryListItem) {
         selectedCountry = countryListItem
+    }
+
+    fun onSearchQueryChanged(keyword: String) {
+        searchJob?.cancel()
+        searchJob = viewModelScope.launch {
+            val countries = if (keyword.isEmpty()) {
+                repository.getAllCountries()
+            } else {
+                repository.filterByLanguageOrRegion(keyword)
+            }
+            countryListLiveData.value =
+                countryListViewModelFactory.createModel(
+                    countries,
+                    fromSearch = true
+                )
+        }
     }
 
     fun loadCountryDetail() {

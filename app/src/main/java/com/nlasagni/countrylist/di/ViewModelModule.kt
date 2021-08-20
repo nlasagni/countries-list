@@ -45,8 +45,10 @@ object ViewModelModule {
 
     @ViewModelScoped
     @Provides
-    fun provideCountryListViewModelFactory(): CountryListViewModelFactory {
-        return CountryListViewModelFactoryImpl()
+    fun provideCountryListViewModelFactory(
+        @ApplicationContext context: Context
+    ): CountryListViewModelFactory {
+        return CountryListViewModelFactoryImpl(context)
     }
 
     @ViewModelScoped
