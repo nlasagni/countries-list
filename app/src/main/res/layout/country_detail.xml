@@ -22,21 +22,8 @@
   ~ SOFTWARE.
   -->
 
-<navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/nav_graph"
-    app:startDestination="@id/countriesListFragment">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <fragment
-        android:id="@+id/countriesListFragment"
-        android:name="com.nlasagni.countrylist.ui.CountryListFragment"
-        android:label="CountriesListFragment" >
-        <action
-            android:id="@+id/action_countriesListFragment_to_countryDetailFragment"
-            app:destination="@id/countryDetailFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/countryDetailFragment"
-        android:name="com.nlasagni.countrylist.ui.CountryDetailFragment"
-        android:label="CountryDetailFragment" />
-</navigation>
+</androidx.constraintlayout.widget.ConstraintLayout>
