@@ -25,14 +25,28 @@
 package com.nlasagni.countrylist.data
 
 /**
+ * The repository of [Country].
+ *
+ * It is capable of getting countries and filtering by language or region.
+ *
  * Created by Nicola Lasagni on 20/08/2021.
  */
 interface CountryRepository {
 
+    /**
+     * Gests all countries in the repository.
+     */
     suspend fun getAllCountries(): List<Country>
 
+    /**
+     * Gets a specific country that has the same [code] as the one specified.
+     */
     suspend fun getCountryByCode(code: String): Country?
 
+    /**
+     * Filters the list of countries of the repository by language or region, using the [keyword]
+     * specified.
+     */
     suspend fun filterByLanguageOrRegion(keyword: String): List<Country>
 
 }

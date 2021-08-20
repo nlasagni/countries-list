@@ -25,6 +25,8 @@
 package com.nlasagni.countrylist.viewmodel.model
 
 /**
+ * Data class that represents the detail of a country.
+ *
  * Created by Nicola Lasagni on 20/08/2021.
  */
 data class CountryDetail(

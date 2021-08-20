@@ -24,13 +24,17 @@
 
 package com.nlasagni.countrylist.api
 
-import com.nlasagni.countrylist.data.CountryCode
-
 /**
+ * Service capable of fetching the correct flage image URL.
+ *
  * Created by Nicola Lasagni on 20/08/2021.
  */
 interface CountryFlagImageUrlService {
 
-    fun fetchFlagImageUrl(countryCode: CountryCode): String
+    /**
+     * Fetch the flag image URL related to the specified [countryCode].
+     * @return The flag image URL.
+     */
+    fun fetchFlagImageUrl(countryCode: String): String
 
 }

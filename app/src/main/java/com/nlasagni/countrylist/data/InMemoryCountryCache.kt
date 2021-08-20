@@ -25,6 +25,8 @@
 package com.nlasagni.countrylist.data
 
 /**
+ * Simple [CountryCache] that caches countries in memory.
+ *
  * Created by Nicola Lasagni on 20/08/2021.
  */
 class InMemoryCountryCache : CountryCache {

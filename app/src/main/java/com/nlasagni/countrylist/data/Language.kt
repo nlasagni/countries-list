@@ -27,6 +27,8 @@ package com.nlasagni.countrylist.data
 import com.google.gson.annotations.SerializedName
 
 /**
+ * Data class that represents a language from CountryRest APIs.
+ *
  * Created by Nicola Lasagni on 17/08/2021.
  */
 data class Language(

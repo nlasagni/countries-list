@@ -29,10 +29,6 @@ import com.google.gson.annotations.SerializedName
 /**
  * Data class that represents a country from CountryRest APIs.
  *
- * Not all of the fields returned from the API are represented here; only the ones used in this
- * project are listed below. For a full list of fields, consult the API documentation
- * [here](https://restcountries.eu/#api-endpoints-response-example).
- *
  * Created by Nicola Lasagni on 16/08/2021.
  */
 data class Country(

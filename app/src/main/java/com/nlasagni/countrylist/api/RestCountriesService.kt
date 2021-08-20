@@ -39,6 +39,9 @@ import retrofit2.http.GET
  */
 interface RestCountriesService {
 
+    /**
+     * Retrieves all the countries.
+     */
     @GET("all")
     suspend fun fetchAllCountries(): List<Country>
 

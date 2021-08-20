@@ -28,10 +28,16 @@ import com.nlasagni.countrylist.data.Country
 import com.nlasagni.countrylist.viewmodel.model.CountryList
 
 /**
+ * A factory capable of creating a [CountryList] from a list of [Country].
+ *
  * Created by Nicola Lasagni on 20/08/2021.
  */
 interface CountryListViewModelFactory {
 
+    /**
+     * Creates a [CountryList] given the [countries] and the [fromSearch] parameters.
+     * [fromSearch] indicates that the [countries] are coming from a filtering process.
+     */
     fun createModel(countries: List<Country>, fromSearch: Boolean): CountryList
 
 }

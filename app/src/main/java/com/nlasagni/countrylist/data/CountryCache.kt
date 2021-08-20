@@ -25,12 +25,20 @@
 package com.nlasagni.countrylist.data
 
 /**
+ * Class that represents a cache of a list of [Country].
+ *
  * Created by Nicola Lasagni on 20/08/2021.
  */
 interface CountryCache {
 
+    /**
+     * Retrieves the list of [Country] inside the cache if present.
+     */
     fun get(): List<Country>?
 
+    /**
+     * Put a list of [Country] into the cache.
+     */
     fun put(countries: List<Country>)
 
 }

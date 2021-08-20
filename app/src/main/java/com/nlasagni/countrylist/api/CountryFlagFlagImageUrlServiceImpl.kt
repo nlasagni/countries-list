@@ -24,13 +24,14 @@
 
 package com.nlasagni.countrylist.api
 
-import com.nlasagni.countrylist.data.CountryCode
-
 /**
+ * Simple [CountryFlagImageUrlService] that uses the https://www.countryflags.io/ service
+ * for retrieving flag image URLs.
+ *
  * Created by Nicola Lasagni on 20/08/2021.
  */
 class CountryFlagFlagImageUrlServiceImpl : CountryFlagImageUrlService {
-    override fun fetchFlagImageUrl(countryCode: CountryCode): String {
-        return "https://www.countryflags.io/${countryCode.value.lowercase()}/flat/64.png"
+    override fun fetchFlagImageUrl(countryCode: String): String {
+        return "https://www.countryflags.io/${countryCode.lowercase()}/flat/64.png"
     }
 }

@@ -25,6 +25,8 @@
 package com.nlasagni.countrylist.viewmodel.model
 
 /**
+ * Data class that represents a country that belongs to a list of countries.
+ *
  * Created by Nicola Lasagni on 20/08/2021.
  */
 data class CountryListItem(val code: String, val name: String, val imageUrl: String)

@@ -28,10 +28,15 @@ import com.nlasagni.countrylist.data.Country
 import com.nlasagni.countrylist.viewmodel.model.CountryDetail
 
 /**
+ * A factory capable of creating a [CountryDetail] from a [Country].
+ *
  * Created by Nicola Lasagni on 20/08/2021.
  */
 interface CountryDetailViewModelFactory {
 
+    /**
+     * Creates a [CountryDetail] from a [Country].
+     */
     fun createModel(country: Country): CountryDetail
 
 }

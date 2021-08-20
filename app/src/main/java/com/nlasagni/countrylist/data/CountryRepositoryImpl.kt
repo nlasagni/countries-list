@@ -31,6 +31,8 @@ import retrofit2.HttpException
 import javax.inject.Inject
 
 /**
+ * Implementation of a [CountryRepository].
+ *
  * Created by Nicola Lasagni on 16/08/2021.
  */
 class CountryRepositoryImpl @Inject constructor(
@@ -48,7 +50,7 @@ class CountryRepositoryImpl @Inject constructor(
         try {
             countries = service.fetchAllCountries().map { country ->
                 country.copy(
-                    flag = countryFlagImageUrlService.fetchFlagImageUrl(CountryCode(country.code))
+                    flag = countryFlagImageUrlService.fetchFlagImageUrl(country.code)
                 )
             }
             countryCache.put(countries)
