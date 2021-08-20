@@ -38,3 +38,20 @@ Are considered a plus:
 - use of the GraphQL API
 
 The REST API returns country flags in SVG format. If the app plans to show them, we recommend that you take a look at https://www.countryflags.io/, an API that returns a flag in PNG format given its country code (example: https://www.countryflags.io/it/flat/64.png).
+
+## Solution
+
+The app has been designed following the 
+[official guide to app architecture](https://developer.android.com/jetpack/guide).
+In particular the main classes involved in the solution are:
+
+- **CountryRepository:** responsible of retrieving and filtering countries from the REST service.
+- **CountryViewModel, CountryListViewModelFactory, CountryDetailViewModelFactory:** responsible of manipulating data coming from the repository and make them ui-ready.
+- **CountryListFragment, CountryDetailFragment:** Fragments that represent the UI of the app. 
+
+In order to achieve the main goals of the assignment, the following dependencies has been used:
+
+- [Hilt](https://developer.android.com/training/dependency-injection/hilt-android) for dependency injection.
+- [Gson](https://github.com/google/gson), [Retrofit2](https://square.github.io/retrofit/) for making HTTP calls and convert JSON to objects.
+- [Navigation](https://developer.android.com/guide/navigation/navigation-getting-started) for navigating between Fragments.
+- [Picasso](https://square.github.io/picasso/) for loading images.
