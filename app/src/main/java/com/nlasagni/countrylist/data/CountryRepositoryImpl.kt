@@ -24,6 +24,7 @@
 
 package com.nlasagni.countrylist.data
 
+import com.nlasagni.countrylist.api.CountryFlagImageUrlService
 import com.nlasagni.countrylist.api.RestCountriesService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -34,6 +35,7 @@ import javax.inject.Inject
  */
 class CountryRepositoryImpl @Inject constructor(
     private val service: RestCountriesService,
+    private val countryFlagImageUrlService: CountryFlagImageUrlService,
     private val countryCache: CountryCache
 ) : CountryRepository {
 
@@ -43,7 +45,11 @@ class CountryRepositoryImpl @Inject constructor(
             return cached
         }
         return withContext(Dispatchers.IO) {
-            val countries = service.fetchAllCountries()
+            val countries = service.fetchAllCountries().map { country ->
+                country.copy(
+                    flag = countryFlagImageUrlService.fetchFlagImageUrl(CountryCode(country.code))
+                )
+            }
             countryCache.put(countries)
             countries
         }

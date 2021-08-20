@@ -22,34 +22,19 @@
  * SOFTWARE.
  */
 
-package com.nlasagni.countrylist.di
+package com.nlasagni.countrylist.data
 
-import com.nlasagni.countrylist.api.CountryFlagFlagImageUrlServiceImpl
-import com.nlasagni.countrylist.api.CountryFlagImageUrlService
-import com.nlasagni.countrylist.api.RestCountriesService
-import dagger.Module
-import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
+import java.lang.IllegalArgumentException
 
 /**
- * Created by Nicola Lasagni on 17/08/2021.
+ * Created by Nicola Lasagni on 20/08/2021.
  */
-@Module
-@InstallIn(SingletonComponent::class)
-object ApiModule {
+data class CountryCode(val value: String) {
 
-    @Singleton
-    @Provides
-    fun provideRestCountriesService(): RestCountriesService {
-        return RestCountriesService.create()
-    }
-
-    @Singleton
-    @Provides
-    fun provideCountryImageUrlService(): CountryFlagImageUrlService {
-        return CountryFlagFlagImageUrlServiceImpl()
+    init {
+        if (value.length != 2) {
+            throw IllegalArgumentException("Country code must have only two characters")
+        }
     }
 
 }

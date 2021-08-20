@@ -24,6 +24,7 @@
 
 package com.nlasagni.countrylist.data
 
+import com.nlasagni.countrylist.api.CountryFlagFlagImageUrlServiceImpl
 import com.nlasagni.countrylist.api.RestCountriesService
 import com.nlasagni.countrylist.enqueueResponse
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -51,15 +52,17 @@ class CountryRepositoryTest {
         .writeTimeout(1, TimeUnit.SECONDS)
         .build()
 
-    private val service = Retrofit.Builder()
+    private val restService = Retrofit.Builder()
         .baseUrl(mockWebServer.url("/"))
         .client(client)
         .addConverterFactory(GsonConverterFactory.create())
         .build()
         .create(RestCountriesService::class.java)
 
+    private val countryFlagImageUrlService = CountryFlagFlagImageUrlServiceImpl()
     private val countryCache = InMemoryCountryCache()
-    private val repository: CountryRepository = CountryRepositoryImpl(service, countryCache)
+    private val repository: CountryRepository =
+        CountryRepositoryImpl(restService, countryFlagImageUrlService, countryCache)
 
     @After
     fun tearDown() {
@@ -76,7 +79,7 @@ class CountryRepositoryTest {
             val expected = listOf(
                 Country(
                     name = "Italy",
-                    countryCode = "IT",
+                    code = "IT",
                     languages = listOf(Language(name = "Italian")),
                     capital = "Rome",
                     region = "Europe",

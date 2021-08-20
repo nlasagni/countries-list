@@ -24,6 +24,7 @@
 
 package com.nlasagni.countrylist.di
 
+import com.nlasagni.countrylist.api.CountryFlagImageUrlService
 import com.nlasagni.countrylist.api.RestCountriesService
 import com.nlasagni.countrylist.data.CountryCache
 import com.nlasagni.countrylist.data.CountryRepository
@@ -50,9 +51,10 @@ object DataModule {
 
     @Singleton
     @Provides
-    fun provideCountryRepository(service: RestCountriesService,
+    fun provideCountryRepository(restService: RestCountriesService,
+                                 flagImageUrlService: CountryFlagImageUrlService,
                                  countryCache: CountryCache): CountryRepository {
-        return CountryRepositoryImpl(service, countryCache)
+        return CountryRepositoryImpl(restService, flagImageUrlService, countryCache)
     }
 
 }

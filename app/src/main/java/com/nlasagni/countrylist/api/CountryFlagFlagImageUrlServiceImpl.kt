@@ -22,34 +22,15 @@
  * SOFTWARE.
  */
 
-package com.nlasagni.countrylist.di
+package com.nlasagni.countrylist.api
 
-import com.nlasagni.countrylist.api.CountryFlagFlagImageUrlServiceImpl
-import com.nlasagni.countrylist.api.CountryFlagImageUrlService
-import com.nlasagni.countrylist.api.RestCountriesService
-import dagger.Module
-import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
+import com.nlasagni.countrylist.data.CountryCode
 
 /**
- * Created by Nicola Lasagni on 17/08/2021.
+ * Created by Nicola Lasagni on 20/08/2021.
  */
-@Module
-@InstallIn(SingletonComponent::class)
-object ApiModule {
-
-    @Singleton
-    @Provides
-    fun provideRestCountriesService(): RestCountriesService {
-        return RestCountriesService.create()
+class CountryFlagFlagImageUrlServiceImpl : CountryFlagImageUrlService {
+    override fun fetchFlagImageUrl(countryCode: CountryCode): String {
+        return "https://www.countryflags.io/${countryCode.value.lowercase()}/flat/64.png"
     }
-
-    @Singleton
-    @Provides
-    fun provideCountryImageUrlService(): CountryFlagImageUrlService {
-        return CountryFlagFlagImageUrlServiceImpl()
-    }
-
 }
