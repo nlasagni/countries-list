@@ -1,6 +1,6 @@
 ![Android CI status](https://github.com/nlasagni/countries-list/actions/workflows/android.yml/badge.svg)
 
-# CountriesList Android app
+# Country List Android app
 
 ## Introduction
 
