@@ -58,7 +58,8 @@ class CountryRepositoryTest {
         .build()
         .create(RestCountriesService::class.java)
 
-    private val repository: CountryRepository = CountryRepositoryImpl(service)
+    private val countryCache = InMemoryCountryCache()
+    private val repository: CountryRepository = CountryRepositoryImpl(service, countryCache)
 
     @After
     fun tearDown() {
