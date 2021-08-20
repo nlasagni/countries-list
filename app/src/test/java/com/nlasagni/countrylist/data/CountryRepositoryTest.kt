@@ -22,10 +22,10 @@
  * SOFTWARE.
  */
 
-package com.nlasagni.countrieslist.data
+package com.nlasagni.countrylist.data
 
-import com.nlasagni.countrieslist.api.RestCountriesService
-import com.nlasagni.countrieslist.enqueueResponse
+import com.nlasagni.countrylist.api.RestCountriesService
+import com.nlasagni.countrylist.enqueueResponse
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
 import okhttp3.OkHttpClient

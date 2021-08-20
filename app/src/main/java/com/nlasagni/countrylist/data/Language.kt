@@ -22,9 +22,13 @@
  * SOFTWARE.
  */
 
-package com.nlasagni.countrieslist.viewmodel.model
+package com.nlasagni.countrylist.data
+
+import com.google.gson.annotations.SerializedName
 
 /**
- * Created by Nicola Lasagni on 20/08/2021.
+ * Created by Nicola Lasagni on 17/08/2021.
  */
-data class CountryListItem(val name: String, val imageUrl: String)
+data class Language(
+    @field:SerializedName("name") val name: String
+)

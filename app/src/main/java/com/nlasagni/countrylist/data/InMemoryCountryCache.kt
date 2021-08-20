@@ -22,26 +22,21 @@
  * SOFTWARE.
  */
 
-package com.nlasagni.countrieslist.di
-
-import com.nlasagni.countrieslist.api.RestCountriesService
-import dagger.Module
-import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
+package com.nlasagni.countrylist.data
 
 /**
- * Created by Nicola Lasagni on 17/08/2021.
+ * Created by Nicola Lasagni on 20/08/2021.
  */
-@Module
-@InstallIn(SingletonComponent::class)
-object ApiModule {
+class InMemoryCountryCache : CountryCache {
 
-    @Singleton
-    @Provides
-    fun provideRestCountriesService(): RestCountriesService {
-        return RestCountriesService.create()
+    private var cache: Collection<Country>? = null
+
+    override fun get(): Collection<Country>? {
+        return cache
+    }
+
+    override fun put(countries: Collection<Country>) {
+        cache = countries
     }
 
 }

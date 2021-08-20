@@ -22,25 +22,31 @@
  * SOFTWARE.
  */
 
-package com.nlasagni.countrieslist.data
+package com.nlasagni.countrylist.data
 
-import com.google.gson.annotations.SerializedName
+import com.nlasagni.countrylist.api.RestCountriesService
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
 /**
- * Data class that represents a country from CountryRest APIs.
- *
- * Not all of the fields returned from the API are represented here; only the ones used in this
- * project are listed below. For a full list of fields, consult the API documentation
- * [here](https://restcountries.eu/#api-endpoints-response-example).
- *
  * Created by Nicola Lasagni on 16/08/2021.
  */
-data class Country(
-    @field:SerializedName("name") val name: String,
-    @field:SerializedName("alpha2Code") val countryCode: String,
-    @field:SerializedName("capital") val capital: String,
-    @field:SerializedName("languages") val languages: List<Language>,
-    @field:SerializedName("region") val region: String,
-    @field:SerializedName("subregion") val subRegion: String,
-    @field:SerializedName("flag") val flag: String,
-)
+class CountryRepositoryImpl @Inject constructor(
+    private val service: RestCountriesService,
+    private val countryCache: CountryCache
+) : CountryRepository {
+
+    override suspend fun getAllCountries(): Collection<Country> {
+        val cached = countryCache.get()
+        if (cached != null) {
+            return cached
+        }
+        return withContext(Dispatchers.IO) {
+            val countries = service.fetchAllCountries()
+            countryCache.put(countries)
+            countries
+        }
+    }
+
+}

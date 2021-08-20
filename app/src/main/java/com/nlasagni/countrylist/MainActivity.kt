@@ -22,26 +22,16 @@
  * SOFTWARE.
  */
 
-package com.nlasagni.countrieslist
+package com.nlasagni.countrylist
 
-import okhttp3.mockwebserver.MockResponse
-import okhttp3.mockwebserver.MockWebServer
-import okio.buffer
-import okio.source
-import java.nio.charset.StandardCharsets
+import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import dagger.hilt.android.AndroidEntryPoint
 
-/**
- * Created by Nicola Lasagni on 16/08/2021.
- */
-internal fun MockWebServer.enqueueResponse(fileName: String, code: Int) {
-    val inputStream = javaClass.classLoader?.getResourceAsStream("api-response/$fileName")
-
-    val source = inputStream?.let { inputStream.source().buffer() }
-    source?.let {
-        enqueue(
-            MockResponse()
-                .setResponseCode(code)
-                .setBody(source.readString(StandardCharsets.UTF_8))
-        )
+@AndroidEntryPoint
+class MainActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
     }
 }

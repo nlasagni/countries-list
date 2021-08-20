@@ -22,15 +22,43 @@
  * SOFTWARE.
  */
 
-package com.nlasagni.countrieslist.data
+package com.nlasagni.countrylist.api
+
+import com.nlasagni.countrylist.data.Country
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
+import okhttp3.logging.HttpLoggingInterceptor.Level
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.http.GET
 
 /**
- * Created by Nicola Lasagni on 20/08/2021.
+ * Used to connect to the RestCountries API to fetch countries.
+ *
+ * Created by Nicola Lasagni on 16/08/2021.
  */
-interface CountryCache {
+interface RestCountriesService {
 
-    fun get(): Collection<Country>?
+    @GET("all")
+    suspend fun fetchAllCountries(): List<Country>
 
-    fun put(countries: Collection<Country>)
+    companion object {
+        private const val BASE_URL = "https://restcountries.eu/rest/v2/"
+
+        fun create(): RestCountriesService {
+            val logger = HttpLoggingInterceptor().apply { level = Level.BASIC }
+            val client = OkHttpClient.Builder()
+                .addInterceptor(logger)
+                .build()
+
+            return Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .client(client)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+                .create(RestCountriesService::class.java)
+        }
+
+    }
 
 }

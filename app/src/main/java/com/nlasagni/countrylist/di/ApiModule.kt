@@ -22,16 +22,26 @@
  * SOFTWARE.
  */
 
-package com.nlasagni.countrieslist
+package com.nlasagni.countrylist.di
 
-import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
-import dagger.hilt.android.AndroidEntryPoint
+import com.nlasagni.countrylist.api.RestCountriesService
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
 
-@AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+/**
+ * Created by Nicola Lasagni on 17/08/2021.
+ */
+@Module
+@InstallIn(SingletonComponent::class)
+object ApiModule {
+
+    @Singleton
+    @Provides
+    fun provideRestCountriesService(): RestCountriesService {
+        return RestCountriesService.create()
     }
+
 }

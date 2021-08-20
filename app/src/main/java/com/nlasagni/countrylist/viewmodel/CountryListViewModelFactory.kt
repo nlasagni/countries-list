@@ -22,32 +22,16 @@
  * SOFTWARE.
  */
 
-package com.nlasagni.countrieslist.ui
+package com.nlasagni.countrylist.viewmodel
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import com.nlasagni.countrieslist.viewmodel.CountriesListViewModel
-import dagger.hilt.android.AndroidEntryPoint
+import com.nlasagni.countrylist.data.Country
+import com.nlasagni.countrylist.viewmodel.model.CountryList
 
 /**
- * Created by Nicola Lasagni on 17/08/2021.
+ * Created by Nicola Lasagni on 20/08/2021.
  */
-@AndroidEntryPoint
-class CountriesListFragment : Fragment() {
+interface CountryListViewModelFactory {
 
-    private val viewModel: CountriesListViewModel by viewModels()
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return super.onCreateView(inflater, container, savedInstanceState)
-    }
-
+    fun createModel(countries: Collection<Country>): CountryList
 
 }

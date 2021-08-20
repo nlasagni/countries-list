@@ -22,27 +22,25 @@
  * SOFTWARE.
  */
 
-package com.nlasagni.countrieslist.di
+package com.nlasagni.countrylist.data
 
-import com.nlasagni.countrieslist.viewmodel.CountryListViewModelFactory
-import com.nlasagni.countrieslist.viewmodel.CountryListViewModelFactoryImpl
-import dagger.Module
-import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ViewModelComponent
-import dagger.hilt.android.scopes.ViewModelScoped
+import com.google.gson.annotations.SerializedName
 
 /**
- * Created by Nicola Lasagni on 20/08/2021.
+ * Data class that represents a country from CountryRest APIs.
+ *
+ * Not all of the fields returned from the API are represented here; only the ones used in this
+ * project are listed below. For a full list of fields, consult the API documentation
+ * [here](https://restcountries.eu/#api-endpoints-response-example).
+ *
+ * Created by Nicola Lasagni on 16/08/2021.
  */
-@Module
-@InstallIn(ViewModelComponent::class)
-object ViewModelModule {
-
-    @ViewModelScoped
-    @Provides
-    fun provideCountryListViewModelFactory(): CountryListViewModelFactory {
-        return CountryListViewModelFactoryImpl()
-    }
-
-}
+data class Country(
+    @field:SerializedName("name") val name: String,
+    @field:SerializedName("alpha2Code") val countryCode: String,
+    @field:SerializedName("capital") val capital: String,
+    @field:SerializedName("languages") val languages: List<Language>,
+    @field:SerializedName("region") val region: String,
+    @field:SerializedName("subregion") val subRegion: String,
+    @field:SerializedName("flag") val flag: String,
+)

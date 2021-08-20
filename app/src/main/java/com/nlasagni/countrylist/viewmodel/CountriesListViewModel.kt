@@ -22,21 +22,32 @@
  * SOFTWARE.
  */
 
-package com.nlasagni.countrieslist.data
+package com.nlasagni.countrylist.viewmodel
+
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.nlasagni.countrylist.data.CountryRepository
+import com.nlasagni.countrylist.viewmodel.model.CountryList
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 /**
- * Created by Nicola Lasagni on 20/08/2021.
+ * Created by Nicola Lasagni on 17/08/2021.
  */
-class InMemoryCountryCache : CountryCache {
+@HiltViewModel
+class CountriesListViewModel @Inject constructor(
+    private val repository: CountryRepository,
+    private val countryListViewModelFactory: CountryListViewModelFactory
+) : ViewModel() {
 
-    private var cache: Collection<Country>? = null
+    private val _countries = MutableLiveData<CountryList>()
 
-    override fun get(): Collection<Country>? {
-        return cache
-    }
-
-    override fun put(countries: Collection<Country>) {
-        cache = countries
+    init {
+        viewModelScope.launch {
+            _countries.value = countryListViewModelFactory.createModel(repository.getAllCountries())
+        }
     }
 
 }

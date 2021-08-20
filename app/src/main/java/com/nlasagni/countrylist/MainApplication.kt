@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package com.nlasagni.countrieslist
+package com.nlasagni.countrylist
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp

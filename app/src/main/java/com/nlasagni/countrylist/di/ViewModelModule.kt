@@ -22,31 +22,27 @@
  * SOFTWARE.
  */
 
-package com.nlasagni.countrieslist.data
+package com.nlasagni.countrylist.di
 
-import com.nlasagni.countrieslist.api.RestCountriesService
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
-import javax.inject.Inject
+import com.nlasagni.countrylist.viewmodel.CountryListViewModelFactory
+import com.nlasagni.countrylist.viewmodel.CountryListViewModelFactoryImpl
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ViewModelComponent
+import dagger.hilt.android.scopes.ViewModelScoped
 
 /**
- * Created by Nicola Lasagni on 16/08/2021.
+ * Created by Nicola Lasagni on 20/08/2021.
  */
-class CountryRepositoryImpl @Inject constructor(
-    private val service: RestCountriesService,
-    private val countryCache: CountryCache
-) : CountryRepository {
+@Module
+@InstallIn(ViewModelComponent::class)
+object ViewModelModule {
 
-    override suspend fun getAllCountries(): Collection<Country> {
-        val cached = countryCache.get()
-        if (cached != null) {
-            return cached
-        }
-        return withContext(Dispatchers.IO) {
-            val countries = service.fetchAllCountries()
-            countryCache.put(countries)
-            countries
-        }
+    @ViewModelScoped
+    @Provides
+    fun provideCountryListViewModelFactory(): CountryListViewModelFactory {
+        return CountryListViewModelFactoryImpl()
     }
 
 }

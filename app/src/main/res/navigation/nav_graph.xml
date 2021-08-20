@@ -29,6 +29,6 @@
 
     <fragment
         android:id="@+id/countriesListFragment"
-        android:name="com.nlasagni.countrieslist.ui.CountriesListFragment"
+        android:name="com.nlasagni.countrylist.ui.CountryListFragment"
         android:label="CountriesListFragment" />
 </navigation>

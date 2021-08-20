@@ -22,13 +22,15 @@
  * SOFTWARE.
  */
 
-package com.nlasagni.countrieslist.data
-
-import com.google.gson.annotations.SerializedName
+package com.nlasagni.countrylist.data
 
 /**
- * Created by Nicola Lasagni on 17/08/2021.
+ * Created by Nicola Lasagni on 20/08/2021.
  */
-data class Language(
-    @field:SerializedName("name") val name: String
-)
+interface CountryCache {
+
+    fun get(): Collection<Country>?
+
+    fun put(countries: Collection<Country>)
+
+}

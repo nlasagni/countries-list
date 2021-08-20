@@ -33,7 +33,7 @@ android {
     compileSdk rootProject.compileSdkVersion
 
     defaultConfig {
-        applicationId "com.nlasagni.countrieslist"
+        applicationId "com.nlasagni.countrylist"
         minSdk rootProject.minSdkVersion
         targetSdk rootProject.targetSdkVersion
         versionCode 1

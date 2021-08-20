@@ -22,32 +22,25 @@
  * SOFTWARE.
  */
 
-package com.nlasagni.countrieslist.viewmodel
+package com.nlasagni.countrylist.viewmodel
 
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.nlasagni.countrieslist.data.CountryRepository
-import com.nlasagni.countrieslist.viewmodel.model.CountryList
-import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.launch
-import javax.inject.Inject
+import com.nlasagni.countrylist.data.Country
+import com.nlasagni.countrylist.viewmodel.model.CountryList
+import com.nlasagni.countrylist.viewmodel.model.CountryListItem
 
 /**
- * Created by Nicola Lasagni on 17/08/2021.
+ * Created by Nicola Lasagni on 20/08/2021.
  */
-@HiltViewModel
-class CountriesListViewModel @Inject constructor(
-    private val repository: CountryRepository,
-    private val countryListViewModelFactory: CountryListViewModelFactory
-) : ViewModel() {
+class CountryListViewModelFactoryImpl : CountryListViewModelFactory {
 
-    private val _countries = MutableLiveData<CountryList>()
-
-    init {
-        viewModelScope.launch {
-            _countries.value = countryListViewModelFactory.createModel(repository.getAllCountries())
+    override fun createModel(countries: Collection<Country>): CountryList {
+        val countryListItems = countries.map {
+            CountryListItem(
+                name = it.name,
+                imageUrl = it.flag
+            )
         }
+        return CountryList(countryListItems)
     }
 
 }

@@ -22,43 +22,32 @@
  * SOFTWARE.
  */
 
-package com.nlasagni.countrieslist.api
+package com.nlasagni.countrylist.ui
 
-import com.nlasagni.countrieslist.data.Country
-import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
-import okhttp3.logging.HttpLoggingInterceptor.Level
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.http.GET
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import com.nlasagni.countrylist.viewmodel.CountriesListViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
 /**
- * Used to connect to the RestCountries API to fetch countries.
- *
- * Created by Nicola Lasagni on 16/08/2021.
+ * Created by Nicola Lasagni on 17/08/2021.
  */
-interface RestCountriesService {
+@AndroidEntryPoint
+class CountryListFragment : Fragment() {
 
-    @GET("all")
-    suspend fun fetchAllCountries(): List<Country>
+    private val viewModel: CountriesListViewModel by viewModels()
 
-    companion object {
-        private const val BASE_URL = "https://restcountries.eu/rest/v2/"
-
-        fun create(): RestCountriesService {
-            val logger = HttpLoggingInterceptor().apply { level = Level.BASIC }
-            val client = OkHttpClient.Builder()
-                .addInterceptor(logger)
-                .build()
-
-            return Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .client(client)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
-                .create(RestCountriesService::class.java)
-        }
-
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return super.onCreateView(inflater, container, savedInstanceState)
     }
+
 
 }

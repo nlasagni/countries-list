@@ -22,37 +22,9 @@
  * SOFTWARE.
  */
 
-package com.nlasagni.countrieslist.di
-
-import com.nlasagni.countrieslist.api.RestCountriesService
-import com.nlasagni.countrieslist.data.CountryCache
-import com.nlasagni.countrieslist.data.CountryRepository
-import com.nlasagni.countrieslist.data.CountryRepositoryImpl
-import com.nlasagni.countrieslist.data.InMemoryCountryCache
-import dagger.Module
-import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
+package com.nlasagni.countrylist.viewmodel.model
 
 /**
  * Created by Nicola Lasagni on 20/08/2021.
  */
-@Module
-@InstallIn(SingletonComponent::class)
-object DataModule {
-
-    @Singleton
-    @Provides
-    fun provideCountryCache(): CountryCache {
-        return InMemoryCountryCache()
-    }
-
-    @Singleton
-    @Provides
-    fun provideCountryRepository(service: RestCountriesService,
-                                 countryCache: CountryCache): CountryRepository {
-        return CountryRepositoryImpl(service, countryCache)
-    }
-
-}
+data class CountryList(val countries: Collection<CountryListItem>)
