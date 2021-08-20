@@ -24,6 +24,7 @@
 
 package com.nlasagni.countrylist.data
 
+import android.util.Log
 import com.nlasagni.countrylist.api.CountryFlagImageUrlService
 import com.nlasagni.countrylist.api.RestCountriesService
 import kotlinx.coroutines.Dispatchers
@@ -58,8 +59,10 @@ class CountryRepositoryImpl @Inject constructor(
     }
 
     override suspend fun filterByLanguageOrRegion(keyword: String): Collection<Country> {
+        Log.e("CountryRepositoryImpl", "filterByLanguageOrRegion: $keyword")
         return getAllCountries().filter {
-            it.region == keyword || it.languages.any { language -> language.name == keyword }
+            it.region.equals(keyword, ignoreCase = true) ||
+                    it.languages.any { language -> language.name.equals(keyword, ignoreCase = true) }
         }
     }
 
