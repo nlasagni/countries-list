@@ -27,8 +27,8 @@ package com.nlasagni.countrieslist.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.nlasagni.countrieslist.data.CountryRepositoryImpl
-import com.nlasagni.countrieslist.data.Country
+import com.nlasagni.countrieslist.data.CountryRepository
+import com.nlasagni.countrieslist.viewmodel.model.CountryList
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -38,16 +38,15 @@ import javax.inject.Inject
  */
 @HiltViewModel
 class CountriesListViewModel @Inject constructor(
-    private val repository: CountryRepositoryImpl
+    private val repository: CountryRepository,
+    private val countryListViewModelFactory: CountryListViewModelFactory
 ) : ViewModel() {
 
-    private val _countries = MutableLiveData<Collection<Country>>()
-
-    // creare ui model con paesi e filtri ed errori eventuali
+    private val _countries = MutableLiveData<CountryList>()
 
     init {
         viewModelScope.launch {
-            _countries.value = repository.getAllCountries()
+            _countries.value = countryListViewModelFactory.createModel(repository.getAllCountries())
         }
     }
 

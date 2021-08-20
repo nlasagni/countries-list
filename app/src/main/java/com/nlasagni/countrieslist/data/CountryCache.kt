@@ -24,29 +24,13 @@
 
 package com.nlasagni.countrieslist.data
 
-import com.nlasagni.countrieslist.api.RestCountriesService
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
-import javax.inject.Inject
-
 /**
- * Created by Nicola Lasagni on 16/08/2021.
+ * Created by Nicola Lasagni on 20/08/2021.
  */
-class CountryRepositoryImpl @Inject constructor(
-    private val service: RestCountriesService,
-    private val countryCache: CountryCache
-) : CountryRepository {
+interface CountryCache {
 
-    override suspend fun getAllCountries(): Collection<Country> {
-        val cached = countryCache.get()
-        if (cached != null) {
-            return cached
-        }
-        return withContext(Dispatchers.IO) {
-            val countries = service.fetchAllCountries()
-            countryCache.put(countries)
-            countries
-        }
-    }
+    fun get(): Collection<Country>?
+
+    fun put(countries: Collection<Country>)
 
 }
