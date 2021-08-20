@@ -44,14 +44,22 @@ class CountryRepositoryImpl @Inject constructor(
         if (cached != null) {
             return cached
         }
-        return withContext(Dispatchers.IO) {
-            val countries = service.fetchAllCountries().map { country ->
-                country.copy(
-                    flag = countryFlagImageUrlService.fetchFlagImageUrl(CountryCode(country.code))
-                )
-            }
-            countryCache.put(countries)
-            countries
+        val countries = service.fetchAllCountries().map { country ->
+            country.copy(
+                flag = countryFlagImageUrlService.fetchFlagImageUrl(CountryCode(country.code))
+            )
+        }
+        countryCache.put(countries)
+        return countries
+    }
+
+    override suspend fun getCountryByCode(code: String): Country? {
+        return getAllCountries().firstOrNull { it.code == code }
+    }
+
+    override suspend fun filterByLanguageOrRegion(keyword: String): Collection<Country> {
+        return getAllCountries().filter {
+            it.region == keyword || it.languages.any { language -> language.name == keyword }
         }
     }
 

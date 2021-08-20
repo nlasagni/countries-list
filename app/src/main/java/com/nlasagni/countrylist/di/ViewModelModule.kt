@@ -24,6 +24,8 @@
 
 package com.nlasagni.countrylist.di
 
+import com.nlasagni.countrylist.viewmodel.factory.CountryDetailViewModelFactory
+import com.nlasagni.countrylist.viewmodel.factory.CountryDetailViewModelFactoryImpl
 import com.nlasagni.countrylist.viewmodel.factory.CountryListViewModelFactory
 import com.nlasagni.countrylist.viewmodel.factory.CountryListViewModelFactoryImpl
 import dagger.Module
@@ -43,6 +45,12 @@ object ViewModelModule {
     @Provides
     fun provideCountryListViewModelFactory(): CountryListViewModelFactory {
         return CountryListViewModelFactoryImpl()
+    }
+
+    @ViewModelScoped
+    @Provides
+    fun provideCountryDetailViewModelFactory(): CountryDetailViewModelFactory {
+        return CountryDetailViewModelFactoryImpl()
     }
 
 }

@@ -31,4 +31,8 @@ interface CountryRepository {
 
     suspend fun getAllCountries(): Collection<Country>
 
+    suspend fun getCountryByCode(code: String): Country?
+
+    suspend fun filterByLanguageOrRegion(keyword: String): Collection<Country>
+
 }

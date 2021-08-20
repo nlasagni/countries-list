@@ -27,4 +27,4 @@ package com.nlasagni.countrylist.viewmodel.model
 /**
  * Created by Nicola Lasagni on 20/08/2021.
  */
-data class CountryListItem(val name: String, val imageUrl: String)
+data class CountryListItem(val code: String, val name: String, val imageUrl: String)

@@ -36,6 +36,7 @@ class CountryListViewModelFactoryImpl : CountryListViewModelFactory {
     override fun createModel(countries: Collection<Country>): CountryList {
         val countryListItems = countries.map {
             CountryListItem(
+                code = it.code,
                 name = it.name,
                 imageUrl = it.flag
             )

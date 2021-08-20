@@ -27,9 +27,13 @@ package com.nlasagni.countrylist.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.nlasagni.countrylist.data.Country
 import com.nlasagni.countrylist.data.CountryRepository
+import com.nlasagni.countrylist.viewmodel.factory.CountryDetailViewModelFactory
 import com.nlasagni.countrylist.viewmodel.factory.CountryListViewModelFactory
+import com.nlasagni.countrylist.viewmodel.model.CountryDetail
 import com.nlasagni.countrylist.viewmodel.model.CountryList
+import com.nlasagni.countrylist.viewmodel.model.CountryListItem
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -40,15 +44,33 @@ import javax.inject.Inject
 @HiltViewModel
 class CountryViewModel @Inject constructor(
     private val repository: CountryRepository,
-    private val countryListViewModelFactory: CountryListViewModelFactory
+    private val countryListViewModelFactory: CountryListViewModelFactory,
+    private val countryDetailViewModelFactory: CountryDetailViewModelFactory
 ) : ViewModel() {
 
     val countryListLiveData = MutableLiveData<CountryList>()
+    val countryDetailLiveData = MutableLiveData<CountryDetail>()
+    var selectedCountry: CountryListItem? = null
 
     init {
         viewModelScope.launch {
             countryListLiveData.value =
                 countryListViewModelFactory.createModel(repository.getAllCountries())
+        }
+    }
+
+    fun onCountryListItemClick(countryListItem: CountryListItem) {
+        selectedCountry = countryListItem
+    }
+
+    fun loadCountryDetail() {
+        viewModelScope.launch {
+            selectedCountry?.let { countryListItem ->
+                repository.getCountryByCode(countryListItem.code)?.let { country ->
+                    countryDetailLiveData.value = countryDetailViewModelFactory.createModel(country)
+                }
+            }
+
         }
     }
 
