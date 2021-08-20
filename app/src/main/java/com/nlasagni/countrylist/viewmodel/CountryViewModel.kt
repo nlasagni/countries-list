@@ -37,7 +37,7 @@ import javax.inject.Inject
  * Created by Nicola Lasagni on 17/08/2021.
  */
 @HiltViewModel
-class CountryListViewModel @Inject constructor(
+class CountryViewModel @Inject constructor(
     private val repository: CountryRepository,
     private val countryListViewModelFactory: CountryListViewModelFactory
 ) : ViewModel() {

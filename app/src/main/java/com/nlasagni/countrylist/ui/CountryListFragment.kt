@@ -32,7 +32,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.nlasagni.countrylist.R
-import com.nlasagni.countrylist.viewmodel.CountryListViewModel
+import com.nlasagni.countrylist.viewmodel.CountryViewModel
 import com.nlasagni.countrylist.viewmodel.model.CountryList
 import com.nlasagni.countrylist.viewmodel.model.CountryListItem
 import dagger.hilt.android.AndroidEntryPoint
@@ -44,7 +44,7 @@ import kotlinx.android.synthetic.main.country_list.*
 @AndroidEntryPoint
 class CountryListFragment : Fragment(), CountryListAdapter.OnItemClickListener {
 
-    private val viewModel: CountryListViewModel by viewModels()
+    private val viewModel: CountryViewModel by viewModels()
     private val adapter = CountryListAdapter(this)
     private val columnCount = 3
 
