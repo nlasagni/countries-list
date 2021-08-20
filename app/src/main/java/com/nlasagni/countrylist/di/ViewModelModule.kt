@@ -24,6 +24,7 @@
 
 package com.nlasagni.countrylist.di
 
+import android.content.Context
 import com.nlasagni.countrylist.viewmodel.factory.CountryDetailViewModelFactory
 import com.nlasagni.countrylist.viewmodel.factory.CountryDetailViewModelFactoryImpl
 import com.nlasagni.countrylist.viewmodel.factory.CountryListViewModelFactory
@@ -32,6 +33,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.android.scopes.ViewModelScoped
 
 /**
@@ -49,8 +51,10 @@ object ViewModelModule {
 
     @ViewModelScoped
     @Provides
-    fun provideCountryDetailViewModelFactory(): CountryDetailViewModelFactory {
-        return CountryDetailViewModelFactoryImpl()
+    fun provideCountryDetailViewModelFactory(
+        @ApplicationContext context: Context
+    ): CountryDetailViewModelFactory {
+        return CountryDetailViewModelFactoryImpl(context)
     }
 
 }

@@ -24,10 +24,58 @@
 
 package com.nlasagni.countrylist.ui
 
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import com.nlasagni.countrylist.R
+import com.nlasagni.countrylist.viewmodel.CountryViewModel
+import com.nlasagni.countrylist.viewmodel.model.CountryDetail
+import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.country_detail.*
 
 /**
  * Created by Nicola Lasagni on 20/08/2021.
  */
 class CountryDetailFragment : Fragment() {
+
+    private val viewModel: CountryViewModel by activityViewModels()
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        val view = inflater.inflate(R.layout.country_detail, container, false)
+        subscribeForUpdates()
+        return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewModel.loadCountryDetail()
+    }
+
+    private fun subscribeForUpdates() {
+        viewModel.countryDetailLiveData.observe(viewLifecycleOwner) {
+            renderViewModel(it)
+        }
+    }
+
+    private fun renderViewModel(countryDetail: CountryDetail) {
+        countryName.text = countryDetail.name
+        countryCode.text = countryDetail.code
+        countryCapital.text = countryDetail.capital
+        countryLanguages.text = countryDetail.languages
+        countryRegion.text = countryDetail.region
+        countrySubregion.text = countryDetail.subRegion
+        Picasso.get()
+            .load(countryDetail.flagImageUrl)
+            .error(R.mipmap.ic_launcher)
+            .fit().centerCrop()
+            .into(flagImage)
+    }
+
 }

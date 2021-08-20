@@ -24,23 +24,29 @@
 
 package com.nlasagni.countrylist.viewmodel.factory
 
+import android.content.Context
+import com.nlasagni.countrylist.R
 import com.nlasagni.countrylist.data.Country
 import com.nlasagni.countrylist.viewmodel.model.CountryDetail
+import javax.inject.Inject
 
 /**
  * Created by Nicola Lasagni on 20/08/2021.
  */
-class CountryDetailViewModelFactoryImpl : CountryDetailViewModelFactory {
+class CountryDetailViewModelFactoryImpl @Inject constructor(
+    private val context: Context
+) : CountryDetailViewModelFactory {
 
     override fun createModel(country: Country): CountryDetail {
+        val languages = country.languages.map { it.name }.joinToString(separator = ", ")
         return CountryDetail(
             name = country.name,
             flagImageUrl = country.flag,
-            code = country.code,
-            capital = country.capital,
-            mainLanguage = country.languages.firstOrNull()?.name ?: "",
-            region = country.region,
-            subRegion = country.subRegion
+            code = context.getString(R.string.country_code, country.code),
+            capital = context.getString(R.string.country_capital, country.capital),
+            languages = context.getString(R.string.country_languages, languages),
+            region = context.getString(R.string.country_region, country.region),
+            subRegion = context.getString(R.string.country_subregion, country.subRegion)
         )
     }
 

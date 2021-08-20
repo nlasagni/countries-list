@@ -35,7 +35,7 @@ data class CountryDetail(
    val flagImageUrl: String,
    val code: String,
    val capital: String,
-   val mainLanguage: String,
+   val languages: String,
    val region: String,
    val subRegion: String,
 )
